@@ -67,7 +67,7 @@ export default function Comment({
                   alt="profile-image"
                   width={48}
                   height={48}
-                  className="rounded-full object-cover"
+                  className="rounded-full object-cover aspect-square"
                 />
               </FormLabel>
               <FormControl className="border-none bg-transparent">

@@ -38,7 +38,6 @@ export default function ThreadCard({
   commments,
   isComment,
 }: Props) {
-
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -53,7 +52,7 @@ export default function ThreadCard({
                 src={author.image}
                 fill
                 alt={`${author.name}-profile-picture`}
-                className="cursor-pointer rounded-full object-contain"
+                className="cursor-pointer rounded-full object-cover"
               />
             </Link>
             <div className="thread-card_bar" />
@@ -117,7 +116,13 @@ export default function ThreadCard({
         </div>
 
         {/* TODO: Delete thread */}
-        {author.id === currentUserId && <DeleteThread id={id} />}
+        {author.id === currentUserId && (
+          <DeleteThread
+            threadId={JSON.stringify(id)}
+            parentId={parentId}
+            isComment={isComment}
+          />
+        )}
         {/* TODO: Show comment logo */}
       </div>
       {!isComment && community && (
