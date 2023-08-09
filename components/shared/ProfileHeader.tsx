@@ -7,6 +7,7 @@ interface Props {
   username: string;
   imgUrl: string;
   bio: string;
+  type?: "User" | "Community";
 }
 
 export default function ProfileHeader({
@@ -16,6 +17,7 @@ export default function ProfileHeader({
   username,
   imgUrl,
   bio,
+  type,
 }: Props) {
   return (
     <div className="flex w-full flex-col justify-start">
@@ -40,7 +42,7 @@ export default function ProfileHeader({
 
         {/* TODO Community */}
       </div>
-      <p className="mt-6 max-w-lg text-base-regular text-light-2">{bio}</p>
+      <p className="mt-6 max-w-lg text-base-regular text-light-2">{bio === "org bio" ? `Welcome to the ${name} community` : bio}</p>
       <div className="mt-12 h-0.5 w-full bg-dark-3" />
     </div>
   );
