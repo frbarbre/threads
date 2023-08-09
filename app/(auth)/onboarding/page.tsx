@@ -4,19 +4,7 @@ import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  // const user = await currentUser();
-
-  // const userInfo = {};
-
-  // const userData = {
-  //   id: user?.id,
-  //   objectId: userInfo?._id,
-  //   username: userInfo?.username || user?.username,
-  //   name: userInfo?.name || user?.firstName || "",
-  //   bio: userInfo?.bio || "",
-  //   image: userInfo?.image || user?.imageUrl,
-  // };
-
+  
   const user = await currentUser();
   if (!user) return null; // to avoid typescript warnings
 

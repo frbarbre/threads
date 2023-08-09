@@ -1,6 +1,7 @@
 import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import DeleteThread from "../shared/DeleteThread";
 
 interface Props {
   id: string;
@@ -37,6 +38,7 @@ export default function ThreadCard({
   commments,
   isComment,
 }: Props) {
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -115,6 +117,7 @@ export default function ThreadCard({
         </div>
 
         {/* TODO: Delete thread */}
+        {author.id === currentUserId && <DeleteThread id={id} />}
         {/* TODO: Show comment logo */}
       </div>
       {!isComment && community && (
