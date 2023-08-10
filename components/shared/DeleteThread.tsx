@@ -18,6 +18,10 @@ export default async function DeleteThread({
   const pathname = usePathname();
   const router = useRouter();
   if (pathname === "/") return null;
+
+  let isProfileActive = pathname.includes("/profile");
+
+  console.log(isProfileActive);
   return (
     <Image
       src="/delete.svg"
@@ -27,10 +31,14 @@ export default async function DeleteThread({
       className="cursor-pointer object-contain"
       onClick={async () => {
         await deleteThread(JSON.parse(threadId), pathname);
-        if (!parentId || !isComment && pathname.includes("/profile")) {
-          router.push(pathname);
+        if (isProfileActive) {
+          if (!parentId || !isComment) {
+            router.push(pathname);
+          }
         } else {
-          router.push("/")
+          if (!parentId || !isComment) {
+            router.push("/");
+          }
         }
       }}
     />
