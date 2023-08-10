@@ -121,7 +121,7 @@
   @apply max-sm:hidden;
 }
 
-.cl-organizationSwitcherTrigger
+.rl-organizationSwitcherTrigger
   .cl-organizationPreview
   .cl-organizationPreviewTextContainer {
   @apply max-sm:hidden;

@@ -1,15 +1,16 @@
 import CommunityCard from "@/components/cards/CommunityCard";
-import UserCard from "@/components/cards/UserCard";
-import ProfileHeader from "@/components/shared/ProfileHeader";
-import ThreadsTab from "@/components/shared/ThreadsTab";
-import { profileTabs } from "@/constants";
+import SearchBar from "@/components/shared/SearchBar";
 import { fetchCommunities } from "@/lib/actions/community.actions";
-import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
+import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
-import Image from "next/image";
+
 import { redirect } from "next/navigation";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
   const user = await currentUser();
   if (!user) return null;
 
@@ -17,7 +18,7 @@ export default async function Page() {
   if (!userInfo?.onboarded) redirect("/onboarding");
 
   const result = await fetchCommunities({
-    searchString: "",
+    searchString: searchParams.q || "",
     pageNumber: 1,
     pageSize: 25,
   });
@@ -26,8 +27,11 @@ export default async function Page() {
     <section>
       <h1 className="head-text mb-10">Search</h1>
       <div className="mt-14 flex flex-col gap-9">
+        <SearchBar placeholder={"Search communities"} route={"communities"} />
         {result.communities.length === 0 ? (
-          <p className="no-result">No communities</p>
+          <p className="text-left text-gray-1 pl-2">{searchParams.q === ""
+          ? "No communites"
+          : `No communites with the name of: ${searchParams.q}`}</p>
         ) : (
           <>
             {result.communities.map((community) => (
