@@ -21,7 +21,6 @@ export default async function DeleteThread({
 
   let isProfileActive = pathname.includes("/profile");
 
-  console.log(isProfileActive);
   return (
     <Image
       src="/delete.svg"

@@ -1,4 +1,5 @@
 import CommunityCard from "@/components/cards/CommunityCard";
+import Pagination from "@/components/shared/Pagination";
 import SearchBar from "@/components/shared/SearchBar";
 import { fetchCommunities } from "@/lib/actions/community.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
@@ -19,7 +20,7 @@ export default async function Page({
 
   const result = await fetchCommunities({
     searchString: searchParams.q || "",
-    pageNumber: 1,
+    pageNumber: searchParams.page ? +searchParams.page : 1,
     pageSize: 25,
   });
 
@@ -29,9 +30,11 @@ export default async function Page({
       <div className="mt-14 flex flex-col gap-9">
         <SearchBar placeholder={"Search communities"} route={"communities"} />
         {result.communities.length === 0 ? (
-          <p className="text-left text-gray-1 pl-2">{searchParams.q === ""
-          ? "No communites"
-          : `No communites with the name of: ${searchParams.q}`}</p>
+          <p className="text-left text-gray-1 pl-2">
+            {searchParams.q === ""
+              ? "No communites"
+              : `No communites with the name of: ${searchParams.q}`}
+          </p>
         ) : (
           <>
             {result.communities.map((community) => (
@@ -48,6 +51,11 @@ export default async function Page({
           </>
         )}
       </div>
+      <Pagination
+        path="communities"
+        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        isNext={result.isNext}
+      />
     </section>
   );
 }
